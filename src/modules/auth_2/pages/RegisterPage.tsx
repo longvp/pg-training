@@ -1,3 +1,4 @@
+import RegisterForm from '../components/RegisterForm'
 import { replace } from 'connected-react-router'
 import Cookies from 'js-cookie'
 import React, { useEffect, useState } from 'react'
@@ -13,12 +14,10 @@ import { ACCESS_TOKEN_KEY } from '../../../utils/constants'
 import { RESPONSE_STATUS_SUCCESS } from '../../../utils/httpResponseCode'
 import { setUserInfo } from '../../auth/redux/authReducer'
 import { fetchThunk } from '../../common/redux/thunk'
-import LoginForm2 from '../components/LoginForm2'
 
-function LoginPage2() {
+const RegisterPage = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
   const [errorMessage, setErrorMessage] = useState('')
-
   const handleLogin = React.useCallback(
     async (values: ILoginParams) => {
       setErrorMessage('')
@@ -39,18 +38,11 @@ function LoginPage2() {
     [dispatch],
   )
 
-  useEffect(() => {
-    const accessToken = Cookies.get(ACCESS_TOKEN_KEY)
-    if (accessToken) {
-      dispatch(replace(ROUTES.home))
-    }
-  }, [])
-
   return (
     <>
-      <LoginForm2 handleLogin={handleLogin} errorMessage={errorMessage} />
+      <RegisterForm handleLogin={handleLogin} errorMessage={errorMessage} />
     </>
   )
 }
 
-export default LoginPage2
+export default RegisterPage

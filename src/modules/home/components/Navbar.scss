@@ -1,17 +1,25 @@
 .menu{
   display: flex;
   background-color: #34B3F1;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 50px;
-  line-height: 50px;
-  .link{
+  height: 60px;
+  line-height: 60px;
+}
+
+.logo{
+  display: inline-block;
+  width: 60px;
+}
+
+.menu-link{
+   .link{
     display: inline-block;
-    height: 100%;
+    // height: 50px;
+    text-align: center;
     text-decoration: none;
-    text-transform: uppercase;
-    padding: 0 20px;
+    padding: 0 15px;
     color: white;
     font-size: 16px;
     font-weight: 500;
@@ -24,5 +32,31 @@
     background-color: #EF9F9F;
     color: white;
   }
+}
 
+.action{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  .avatar{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    .icon{
+      color: white;
+    }
+    .name{
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+  .log-out{
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    display: block;
+  }
 }
