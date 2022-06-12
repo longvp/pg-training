@@ -1,6 +1,6 @@
 import { replace } from 'connected-react-router'
 import Cookies from 'js-cookie'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
@@ -17,15 +17,19 @@ import LoginForm2 from '../components/LoginForm2'
 
 function LoginPage2() {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
-  const [errorMessage, setErrorMessage] = useState('')
+  const [errorMessage, setErrorMessage] = React.useState<string>('')
+  const [loading, setLoading] = React.useState<boolean>(false)
 
   const handleLogin = React.useCallback(
     async (values: ILoginParams) => {
       setErrorMessage('')
+      setLoading(true)
 
       const json = await dispatch(
         fetchThunk(API_PATHS.signIn, 'post', { email: values.email, password: values.password }),
       )
+
+      setLoading(false)
 
       if (json?.code === RESPONSE_STATUS_SUCCESS) {
         dispatch(setUserInfo(json.data))
@@ -39,7 +43,7 @@ function LoginPage2() {
     [dispatch],
   )
 
-  useEffect(() => {
+  React.useEffect(() => {
     const accessToken = Cookies.get(ACCESS_TOKEN_KEY)
     if (accessToken) {
       dispatch(replace(ROUTES.home))
@@ -48,7 +52,7 @@ function LoginPage2() {
 
   return (
     <>
-      <LoginForm2 handleLogin={handleLogin} errorMessage={errorMessage} />
+      <LoginForm2 handleLogin={handleLogin} loading={loading} errorMessage={errorMessage} />
     </>
   )
 }

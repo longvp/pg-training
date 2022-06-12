@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './App.scss'
 import { Routes } from './Routes'
 import Cookies from 'js-cookie'
@@ -11,8 +11,6 @@ import { fetchThunk } from './modules/common/redux/thunk'
 import { API_PATHS } from './configs/api'
 import { RESPONSE_STATUS_SUCCESS } from './utils/httpResponseCode'
 import { setUserInfo } from './modules/auth/redux/authReducer'
-import { replace } from 'connected-react-router'
-import { ROUTES } from './configs/routes'
 
 function App() {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
@@ -27,7 +25,6 @@ function App() {
       const json = await dispatch(fetchThunk(API_PATHS.userProfile))
       if (json?.code === RESPONSE_STATUS_SUCCESS) {
         dispatch(setUserInfo({ ...json.data, token: accessToken }))
-        dispatch(replace(ROUTES.home))
       }
     }
   }, [dispatch, user])

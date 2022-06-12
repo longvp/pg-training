@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './LoginForm2.scss'
 import { ILoginParams } from './../../../models/auth'
 import { Field, Form, Formik } from 'formik'
@@ -12,14 +12,15 @@ import { ROUTES } from '../../../configs/routes'
 
 interface Props {
   handleLogin(values: ILoginParams): void
+  loading: boolean
   errorMessage: string
 }
 
 const LoginForm2 = (props: Props) => {
-  const { handleLogin, errorMessage } = props
+  const { handleLogin, errorMessage, loading } = props
 
   const initialValues: ILoginParams = { email: '', password: '', rememberMe: false }
-  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [showPassword, setShowPassword] = React.useState<boolean>(false)
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword)
@@ -41,7 +42,7 @@ const LoginForm2 = (props: Props) => {
           setSubmitting(false)
         }}
       >
-        {({ values, errors, isSubmitting }) => (
+        {({ errors }) => (
           <Form className="form2">
             <div className="title">
               <FormattedMessage id="signIn" />
@@ -92,8 +93,8 @@ const LoginForm2 = (props: Props) => {
                 <FormattedMessage id="register" />
               </NavLink>
             </div>
-            <button type="submit" className="submit" disabled={isSubmitting}>
-              {isSubmitting && <div className="spinner-border spinner-border-sm text-light mr-2" role="status" />}
+            <button type="submit" className="submit" disabled={loading}>
+              {loading && <div className="spinner-border spinner-border-sm text-light mr-2" role="status" />}
               <FormattedMessage id="signIn" />
             </button>
           </Form>

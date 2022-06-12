@@ -1,38 +1,79 @@
 import RegisterForm from '../components/RegisterForm'
 import { replace } from 'connected-react-router'
-import Cookies from 'js-cookie'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 import { API_PATHS } from '../../../configs/api'
 import { ROUTES } from '../../../configs/routes'
-import { ILoginParams } from '../../../models/auth'
+import { IGenderParams, ISignUpParams, IStatesParams } from '../../../models/auth'
 import { AppState } from '../../../redux/reducer'
 import { getErrorMessageResponse } from '../../../utils'
-import { ACCESS_TOKEN_KEY } from '../../../utils/constants'
 import { RESPONSE_STATUS_SUCCESS } from '../../../utils/httpResponseCode'
-import { setUserInfo } from '../../auth/redux/authReducer'
 import { fetchThunk } from '../../common/redux/thunk'
+import { ILocationParams } from './../../../models/auth'
 
 const RegisterPage = () => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
-  const [errorMessage, setErrorMessage] = useState('')
-  const handleLogin = React.useCallback(
-    async (values: ILoginParams) => {
-      setErrorMessage('')
+  const [loading, setLoading] = React.useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = React.useState<string>('')
 
-      const json = await dispatch(
-        fetchThunk(API_PATHS.signIn, 'post', { email: values.email, password: values.password }),
-      )
+  const genders: IGenderParams[] = [
+    { label: 'Nam', value: 'Male' },
+    { label: 'Nữ', value: 'Female' },
+  ]
+  const [locations, setLocations] = React.useState<ILocationParams[]>([])
+  const [idLocationSelected, setIdLocationSelected] = React.useState<string>('')
+  const [states, setStateS] = React.useState<IStatesParams[]>([])
 
+  const getLocation = React.useCallback(async () => {
+    setLoading(true)
+    const json = await dispatch(fetchThunk(API_PATHS.getLocation, 'get'))
+    if (json?.code === RESPONSE_STATUS_SUCCESS) {
+      const locations = json.data
+      setLocations(locations)
+    }
+    setLoading(false)
+  }, [locations])
+
+  const getState = React.useCallback(
+    async (idLocation) => {
+      setLoading(true)
+      const json = await dispatch(fetchThunk(`${API_PATHS.getLocation}?pid=${idLocation}`, 'get'))
       if (json?.code === RESPONSE_STATUS_SUCCESS) {
-        dispatch(setUserInfo(json.data))
-        Cookies.set(ACCESS_TOKEN_KEY, json.data.token, { expires: values.rememberMe ? 7 : undefined })
-        dispatch(replace(ROUTES.home))
+        setStateS(json.data)
+      }
+      setLoading(false)
+    },
+    [states],
+  )
+
+  const handleChangeLocation = React.useCallback((idLocation: string) => {
+    setIdLocationSelected(idLocation)
+  }, [])
+
+  React.useEffect(() => {
+    getLocation()
+  }, [])
+
+  React.useEffect(() => {
+    if (idLocationSelected) {
+      getState(idLocationSelected)
+    }
+  }, [idLocationSelected])
+
+  // register
+  const handleRegister = React.useCallback(
+    async (values: ISignUpParams) => {
+      setErrorMessage('')
+      setLoading(true)
+      const json = await dispatch(fetchThunk(API_PATHS.register, 'post', values))
+      setLoading(false)
+      if (json?.code === RESPONSE_STATUS_SUCCESS) {
+        alert('Bạn đã đăng ký thành công !')
+        dispatch(replace(ROUTES.login))
         return
       }
-
       setErrorMessage(getErrorMessageResponse(json))
     },
     [dispatch],
@@ -40,7 +81,15 @@ const RegisterPage = () => {
 
   return (
     <>
-      <RegisterForm handleLogin={handleLogin} errorMessage={errorMessage} />
+      <RegisterForm
+        handleRegister={handleRegister}
+        errorMessage={errorMessage}
+        loading={loading}
+        genders={genders}
+        locations={locations}
+        states={states}
+        handleChangeLocation={handleChangeLocation}
+      />
     </>
   )
 }

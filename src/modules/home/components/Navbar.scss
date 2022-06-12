@@ -1,62 +1,190 @@
+.menu-container{
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
 .menu{
   display: flex;
-  background-color: #34B3F1;
-  justify-content: space-around;
   align-items: center;
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
+  justify-content: space-between;
+  padding: 10px 0;
 }
 
 .logo{
-  display: inline-block;
-  width: 60px;
+    display: block;
+    max-width: 70px;
+    object-fit: contain;
 }
 
 .menu-link{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  position: relative;
    .link{
     display: inline-block;
-    // height: 50px;
     text-align: center;
     text-decoration: none;
-    padding: 0 15px;
-    color: white;
-    font-size: 16px;
+    color: black;
+    letter-spacing: 3px;
+    font-size: 18px;
     font-weight: 500;
-    &:hover{
-      background-color: #EF9F9F;
-      color: white;
+    position: relative;
+    &::after{
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background-color: currentColor;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      transform: translateX(-100%);
     }
+    &:hover{
+      //color: #F77E21;
+      transition: 0.3s;
+      &::after{
+        opacity: 1;
+        transform: translateX(0);
+        transition: 0.3s;
+      }
+    }
+
   }
   .active{
-    background-color: #EF9F9F;
+    color: #F77E21;
+    border-bottom: 1px solid #F77E21;
+  }
+  .btn-hide-menu{
+    display: none;
     color: white;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    font-size: 30px;
+    cursor: pointer;
+    &:hover{
+      color: #F77E21;
+    }
   }
 }
 
-.action{
+.header-right{
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 30px;
+  position: relative;
   .avatar{
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+    &:hover .user-action{
+      display: block;
+    }
     .icon{
-      color: white;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      padding: 8px;
+      color: #ccc;
+      font-size: 14px;
     }
     .name{
       font-size: 14px;
       font-weight: 500;
+      letter-spacing: 2px;
+      color: #F77E21;
     }
   }
-  .log-out{
+  .user-action{
+    display: none;
+    list-style-type: none;
+    width: 160px;
+    margin: 0;
+    padding: 0;
+    background-color:white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: absolute;
+    top: 40px;
+    right: 0;
+    &::after{
+      content: '';
+      position: absolute;
+      top: -10px;
+      right: 0;
+      width: 80%;
+      height: 20px;
+    }
+    .action{
+      width: 100%;
+      display: block;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      padding: 10px 20px;
+      &:not(:last-child){
+        border-bottom: 1px solid rgba(204, 204, 204, 0.5);
+      }
+      &:hover{
+        background-color: rgba(204, 204, 204, 0.3);
+      }
+      .action-icon{
+        color: black;
+        font-size: 14px;
+      }
+      .action-name{
+        color: black;
+        font-size: 14px;
+      }
+    }
+  }
+  .btn-show-menu{
+    display: none;
     cursor: pointer;
-    color: white;
-    font-size: 20px;
-    font-weight: 500;
-    display: block;
+    font-size: 25px;
+    color: black;
+    &:hover{
+      color: #F77E21;
+      transition: 0.3s;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .menu-link{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    background-color: rebeccapurple;
+    z-index: 1;
+    transform: translateX(0);
+    transition: transform 0.3s linear;
+    .link:first-child{
+      margin-top: 20px;
+    }
+    &.hide-menu{
+      transform: translateX(-100%);
+    }
+    .btn-hide-menu{
+      display: block;
+    }
+  }
+  .header-right{
+    .btn-show-menu{
+      display: block;
+    }
   }
 }

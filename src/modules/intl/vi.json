@@ -7,12 +7,21 @@
   "gender":"Giới tính",
   "male":"Nam",
   "female":"Nữ",
+  "region":"Quốc gia",
+  "state": "Thành phố",
   "rememberMe": "Lưu thông tin đăng nhập",
   "emailRequire": "Vui lòng nhập địa chỉ email",
   "emailInvalid": "Địa chỉ email không hợp lệ",
   "passwordRequire": "Vui lòng nhập mật khẩu",
   "minPasswordInvalid": "Mật khẩu tối thiểu 4 ký tự",
+  "repeatPasswordRequire":"Vui lòng xác nhận mật khẩu",
+  "repeatPasswordInvalid": "Mật khẩu không trùng khớp",
+  "nameRequire":"Vui lòng nhập họ tên",
+  "genderRequire":"Vui lòng chọn giới tính",
+  "regionRequire":"Vui lòng chọn quốc gia",
+  "stateRequire": "Vui lòng chọn thành phố",
   "remember": "Nhớ mật khẩu",
   "signIn": "Đăng nhập",
-  "register": "Đăng ký"
+  "register": "Đăng ký",
+  "logout": "Đăng xuất"
 }
