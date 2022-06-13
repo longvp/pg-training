@@ -16,6 +16,8 @@
   "minPasswordInvalid": "Mật khẩu tối thiểu 4 ký tự",
   "repeatPasswordRequire":"Vui lòng xác nhận mật khẩu",
   "repeatPasswordInvalid": "Mật khẩu không trùng khớp",
+  "chooseLocation": "Chọn quốc gia",
+  "chooseState": "Chọn thành phố",
   "nameRequire":"Vui lòng nhập họ tên",
   "genderRequire":"Vui lòng chọn giới tính",
   "regionRequire":"Vui lòng chọn quốc gia",
@@ -23,5 +25,6 @@
   "remember": "Nhớ mật khẩu",
   "signIn": "Đăng nhập",
   "register": "Đăng ký",
-  "logout": "Đăng xuất"
+  "logout": "Đăng xuất",
+  "seeDetail": "Xem chi tiết"
 }

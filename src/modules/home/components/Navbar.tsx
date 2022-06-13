@@ -62,11 +62,10 @@ function Navbar() {
                             <FormattedMessage id="logout" />
                           </span>
                         </li>
-                        <li className="action" onClick={() => handleLogOut()} title="Log out">
+                        <li className="action" title="See detail">
                           <FontAwesomeIcon className="action-icon" icon={faEye} />
                           <span className="action-name">
-                            {/* <FormattedMessage id="logout" /> */}
-                            Xem chi tiết
+                            <FormattedMessage id="seeDetail" />
                           </span>
                         </li>
                       </ul>

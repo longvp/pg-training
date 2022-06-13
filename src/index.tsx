@@ -18,17 +18,17 @@ const { store, persistor } = configureStore({})
 store.dispatch(setLocale('vi'))
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ConnectedRouter history={history}>
-          <ConnectedIntlProvider>
-            <App />
-          </ConnectedIntlProvider>
-        </ConnectedRouter>
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <ConnectedRouter history={history}>
+        <ConnectedIntlProvider>
+          <App />
+        </ConnectedIntlProvider>
+      </ConnectedRouter>
+    </PersistGate>
+  </Provider>,
+
   document.getElementById('root'),
 )
 

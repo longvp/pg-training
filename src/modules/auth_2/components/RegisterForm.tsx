@@ -28,8 +28,8 @@ const RegisterForm = (props: Props) => {
     password: '',
     repeatPassword: '',
     name: '',
-    gender: genders && genders.length > 0 ? genders[0].value : '',
-    region: locations.length > 0 ? locations[0].id.toString() : '1',
+    gender: '',
+    region: '',
     state: '',
   }
 
@@ -66,7 +66,7 @@ const RegisterForm = (props: Props) => {
           setSubmitting(false)
         }}
       >
-        {({ values, errors, handleChange }) => (
+        {({ values, errors, touched }) => (
           <>
             {changeLocation(values.region)}
             <Form className="form2">
@@ -84,7 +84,7 @@ const RegisterForm = (props: Props) => {
                   <FormattedMessage id="email" />
                 </label>
                 <Field type="text" id="email" name="email" placeholder="Enter your email" />
-                {errors && errors?.email && (
+                {errors && errors?.email && touched?.email && (
                   <small className="text-danger">
                     <FormattedMessage id={errors?.email} />
                   </small>
@@ -104,7 +104,7 @@ const RegisterForm = (props: Props) => {
                 <span className="icon" onClick={handleShowPassword}>
                   <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                 </span>
-                {errors && errors?.password && (
+                {errors && errors?.password && touched?.password && (
                   <small className="text-danger">
                     <FormattedMessage id={errors?.password} />
                   </small>
@@ -124,7 +124,7 @@ const RegisterForm = (props: Props) => {
                 <span className="icon" onClick={handleShowPassword}>
                   <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                 </span>
-                {errors && errors?.repeatPassword && (
+                {errors && errors?.repeatPassword && touched?.repeatPassword && (
                   <small className="text-danger">
                     <FormattedMessage id={errors?.repeatPassword} />
                   </small>
@@ -136,7 +136,7 @@ const RegisterForm = (props: Props) => {
                   <FormattedMessage id="name" />
                 </label>
                 <Field type="text" id="name" name="name" placeholder="Enter your name" />
-                {errors && errors?.name && (
+                {errors && errors?.name && touched?.name && (
                   <small className="text-danger">
                     <FormattedMessage id={errors?.name} />
                   </small>
@@ -150,6 +150,7 @@ const RegisterForm = (props: Props) => {
                 {genders && genders.length > 0 && (
                   <>
                     <Field as="select" id="gender" name="gender">
+                      <option>--- Chọn giới tính ---</option>
                       {genders &&
                         genders.length > 0 &&
                         genders.map((gender, index) => (
@@ -158,6 +159,11 @@ const RegisterForm = (props: Props) => {
                           </option>
                         ))}
                     </Field>
+                    {errors && errors?.gender && touched?.gender && (
+                      <small className="text-danger">
+                        <FormattedMessage id={errors?.gender} />
+                      </small>
+                    )}
                   </>
                 )}
               </div>
@@ -166,7 +172,8 @@ const RegisterForm = (props: Props) => {
                 <label htmlFor="region">
                   <FormattedMessage id="region" />
                 </label>
-                <Field as="select" id="region" name="region" onChange={handleChange}>
+                <Field as="select" id="region" name="region">
+                  <option>--- Chọn quốc gia ---</option>
                   {locations &&
                     locations.length > 0 &&
                     locations.map((location) => (
@@ -175,7 +182,7 @@ const RegisterForm = (props: Props) => {
                       </option>
                     ))}
                 </Field>
-                {errors && errors?.region && (
+                {errors && errors?.region && touched?.region && (
                   <small className="text-danger">
                     <FormattedMessage id={errors?.region} />
                   </small>
@@ -187,6 +194,7 @@ const RegisterForm = (props: Props) => {
                   <FormattedMessage id="state" />
                 </label>
                 <Field as="select" id="state" name="state">
+                  <option>--- Chọn thành phố ---</option>
                   {states &&
                     states.length > 0 &&
                     states.map((state) => (
@@ -195,7 +203,7 @@ const RegisterForm = (props: Props) => {
                       </option>
                     ))}
                 </Field>
-                {errors && errors?.state && (
+                {errors && errors?.state && touched?.state && (
                   <small className="text-danger">
                     <FormattedMessage id={errors?.state} />
                   </small>
