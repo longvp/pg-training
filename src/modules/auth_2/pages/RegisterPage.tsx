@@ -62,7 +62,7 @@ const RegisterPage = () => {
     }
   }, [idLocationSelected])
 
-  // register
+  // register https://jsonplaceholder.typicode.com/photos?_start=3&_end=10
   const handleRegister = React.useCallback(
     async (values: ISignUpParams) => {
       setErrorMessage('')

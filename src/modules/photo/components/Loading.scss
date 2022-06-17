@@ -1,0 +1,16 @@
+.loading{
+    animation: spinner 1s linear infinite;
+    display: block;
+    font-size: 45px;
+    margin: 0px auto;
+    color: #F77E21;
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+     }
+}

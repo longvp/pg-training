@@ -2,18 +2,18 @@ import { faArrowRightFromBracket, faBars, faEye, faUser, faXmark } from '@fortaw
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { ROUTES } from '../../../configs/routes'
+import { ROUTES } from '../../../../configs/routes'
 import './Navbar.scss'
 import Cookies from 'js-cookie'
-import { ACCESS_TOKEN_KEY } from '../../../utils/constants'
+import { ACCESS_TOKEN_KEY } from '../../../../utils/constants'
 import { replace } from 'connected-react-router'
 import { useDispatch, useSelector } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { AppState } from '../../../redux/reducer'
+import { AppState } from '../../../../redux/reducer'
 import { Action } from 'redux'
-import { removeUserInfo } from './../../auth/redux/authReducer'
+import { removeUserInfo } from '../../../auth/redux/authReducer'
 import _ from 'lodash'
-import pgs from '../../../assets/images/pgs.png'
+import pgs from '../../../../assets/images/pgs.png'
 import { FormattedMessage } from 'react-intl'
 
 function Navbar() {
@@ -45,6 +45,9 @@ function Navbar() {
                   </NavLink>
                   <NavLink activeClassName="active" className="link" to={ROUTES.contact}>
                     Contact
+                  </NavLink>
+                  <NavLink activeClassName="active" className="link" to={ROUTES.photo}>
+                    Photo
                   </NavLink>
                   <div className="btn-hide-menu" onClick={() => setShowMenu(false)}>
                     <FontAwesomeIcon icon={faXmark} />

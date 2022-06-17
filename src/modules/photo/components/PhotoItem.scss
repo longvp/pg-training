@@ -1,0 +1,49 @@
+.photo{
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    margin-bottom: 30px;
+    &:first-child{
+        margin-top: 30px;
+    }
+    &:nth-child(odd){
+        background-color: #F77E21;
+        .input{
+            &:hover{
+                color: #F77E21;
+            }
+        }
+    }
+    &:nth-child(even){
+        background-color: #14C38E;
+         .input{
+            &:hover{
+                color: #14C38E;
+            }
+        }
+    }
+    .thumbnail{
+        width: 100px;
+    }
+    .content{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        .input{
+            text-align: center;
+            width: 100%;
+            padding: 5px 0;
+            color: white;
+            background-color: transparent;
+            border: 1px solid transparent;
+            outline: none;
+            &:hover{
+                background-color: white;
+                //color: currentColor;
+            }
+        }
+    }
+}

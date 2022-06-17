@@ -1,0 +1,30 @@
+.photo-container{
+    margin-top: 35px;
+    .action{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        .btn-action{
+            outline: none;
+            border: none;
+            min-width: 100px;
+            padding: 8px 10px;
+            color: white;
+            background-color: #F94C66;
+            border-radius: 100rem;
+            // &:hover{
+            //     background-color: black;
+            //     transition: 0.5s;
+            // }
+            &:disabled{
+                opacity: 0.5;
+            }
+        }
+    }
+
+    .photo-list{
+        width: 800px;
+        margin: 0 auto;
+    }
+}

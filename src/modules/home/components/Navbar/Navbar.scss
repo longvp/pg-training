@@ -171,11 +171,13 @@
     background-color: rebeccapurple;
     z-index: 1;
     transform: translateX(0);
-    transition: transform 0.3s linear;
+    transition: 0.3s;
+    //transition: transform 0.3s linear;
     .link:first-child{
       margin-top: 20px;
     }
     &.hide-menu{
+      transition: 0.3s;
       transform: translateX(-100%);
     }
     .btn-hide-menu{

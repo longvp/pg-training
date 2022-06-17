@@ -4,5 +4,5 @@ export const ROUTES = {
   register: '/register',
   home: '/home',
   contact: '/contact',
-  blog: '/blog',
+  photo: '/photo',
 }
