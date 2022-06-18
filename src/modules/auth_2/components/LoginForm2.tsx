@@ -42,7 +42,7 @@ const LoginForm2 = (props: Props) => {
           setSubmitting(false)
         }}
       >
-        {({ errors }) => (
+        {({ errors, touched }) => (
           <Form className="form2">
             <div className="title">
               <FormattedMessage id="signIn" />
@@ -57,7 +57,7 @@ const LoginForm2 = (props: Props) => {
                 <FormattedMessage id="email" />
               </label>
               <Field type="text" id="email" name="email" placeholder="Enter your email" />
-              {errors && errors?.email && (
+              {errors && errors?.email && touched?.email && (
                 <small className="text-danger">
                   <FormattedMessage id={errors?.email} />
                 </small>
@@ -76,14 +76,14 @@ const LoginForm2 = (props: Props) => {
               <span className="icon" onClick={handleShowPassword}>
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </span>
-              {errors && errors?.password && (
+              {errors && errors?.password && touched?.password && (
                 <small className="text-danger">
                   <FormattedMessage id={errors?.password} />
                 </small>
               )}
             </div>
             <div className="remember-register">
-              <div className="remember">
+              <div className="remember-box">
                 <Field name="rememberMe" id="remember" type="checkbox" />
                 <label htmlFor="remember">
                   <FormattedMessage id="remember" />
