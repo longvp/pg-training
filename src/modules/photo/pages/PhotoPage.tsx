@@ -7,32 +7,33 @@ import { fetchThunk } from '../../common/redux/thunk'
 import _ from 'lodash'
 import { setPhotos, setPaging } from '../redux/photoReducer'
 import { API_PHOTO, SIZE } from './../utils'
-import PhotoList from '../components/PhotoList'
+import PhotoList from '../components/PhotoList/PhotoList'
 import { IPaging, IPhoto } from '../../../models/photo'
-import Loading from '../components/Loading'
 import './PhotoPage.scss'
-import LoadingSkeleton from '../components/LoadingSkeleton'
+import LoadingSkeleton from '../components/LoadingSkeleton/LoadingSkeleton'
 
 interface Props {}
 
 const PhotoPage = (props: Props) => {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
-  // const { paging } = useSelector((state: AppState) => ({
-  //   paging: state.photo.paging,
-  // }))
-
-  const [paging, setPaging] = useState<IPaging>({ start: 0, end: SIZE })
+  const { isTheEnd } = useSelector((state: AppState) => ({
+    isTheEnd: state.photo.isTheEnd,
+  }))
+  const { paging } = useSelector((state: AppState) => ({
+    paging: state.photo.paging,
+  }))
 
   const [loading, setLoading] = React.useState<boolean>(false)
 
   const getPhoto = React.useCallback(
     async (paging: IPaging) => {
+      setLoading(true)
       const json = await dispatch(fetchThunk(`${API_PHOTO}?_start=${paging.start}&_end=${paging.end}`, 'get'))
       if (!_.isEmpty(json)) {
         const newjson = json.map((photo: IPhoto) => ({ ...photo, updatedAt: '' + Date.now() }))
         dispatch(setPhotos(newjson))
       }
-      setLoading(true)
+      setLoading(false)
     },
     [paging],
   )
@@ -43,44 +44,33 @@ const PhotoPage = (props: Props) => {
     }
   }, [paging])
 
-  const loadMore = () => {
-    console.log('a')
-    // if (paging) {
-    //   dispatch(setPaging({ start: +paging.start + SIZE, end: +paging.end + SIZE }))
-    // }
-    setPaging((prev: IPaging) => ({ start: prev.start + SIZE, end: prev.end + SIZE }))
-  }
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop > document.documentElement.offsetHeight - 1) {
+        if (!paging) {
+          return
+        }
+        dispatch(setPaging())
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
-  const pagingRef = React.useRef<HTMLButtonElement>(null)
-  // React.useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       if (entries[0].isIntersecting) {
-  //         loadMore()
-  //       }
-  //     },
-  //     { threshold: 1 },
-  //   )
-  //   if (loading) {
-  //     if (pagingRef && pagingRef.current) {
-  //       observer.observe(pagingRef.current)
-  //     }
-  //   }
-  //   // return () => {
-  //   //   if (pagingRef && pagingRef.current) {
-  //   //     observer.unobserve(pagingRef.current)
-  //   //   }
-  //   // }
-  // }, [loading])
+  const showLoadingSkeleton = () => {
+    const arr = []
+    for (let i = 0; i < SIZE; i++) {
+      arr.push(i)
+    }
+    return arr.map((index) => <LoadingSkeleton key={index} />)
+  }
 
   return (
     <>
-      <LoadingSkeleton />
       <PhotoList />
-      {/* <Loading /> */}
-      <button type="button" className="btn-load-more" onClick={() => loadMore()} ref={pagingRef}>
-        Load more ...
-      </button>
+      {isTheEnd ? <h4>THE END</h4> : <>{loading && showLoadingSkeleton()}</>}
     </>
   )
 }

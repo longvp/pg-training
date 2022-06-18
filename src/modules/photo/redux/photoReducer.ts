@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { ActionType, createCustomAction, getType } from 'typesafe-actions'
 import { SIZE } from '../utils'
 import { IPaging, IPhoto } from './../../../models/photo'
@@ -7,6 +8,7 @@ export interface PhotoState {
   listPhotoChange?: IPhoto[]
   isReset?: boolean
   paging?: IPaging
+  isTheEnd: boolean
 }
 
 export const setPhotos = createCustomAction('photo/setPhotos', (data: IPhoto[]) => ({
@@ -27,9 +29,7 @@ export const resetPhotos = createCustomAction('photo/resetPhotos', (data: boolea
   data,
 }))
 
-export const setPaging = createCustomAction('photo/setPaging', (data: IPaging) => ({
-  data,
-}))
+export const setPaging = createCustomAction('photo/setPaging')
 
 const actions = { setPhotos, setPhotosChange, removePhotoChange, updatePhotos, resetPhotos, setPaging }
 
@@ -44,6 +44,7 @@ export default function reducer(
       start: 0,
       end: SIZE,
     },
+    isTheEnd: false,
   },
   action: Action,
 ) {
@@ -53,7 +54,17 @@ export default function reducer(
       if (state.listPhoto) {
         listPhoto = [...state.listPhoto]
       }
-      return { ...state, listPhoto: listPhoto.concat(action.data) }
+      const photosAPI = action.data
+      if (_.isEmpty(photosAPI)) {
+        return { ...state, isTheEnd: true }
+      }
+
+      if (listPhoto.length > 0) {
+        if (photosAPI[photosAPI.length - 1].id === listPhoto[listPhoto.length - 1].id) {
+          return { ...state }
+        }
+      }
+      return { ...state, listPhoto: listPhoto.concat(photosAPI) }
     }
     case getType(setPhotosChange): {
       const photoChange = action.data
@@ -110,8 +121,17 @@ export default function reducer(
     case getType(resetPhotos): {
       return { ...state, isReset: action.data }
     }
-    case getType(setPaging):
-      return { ...state, paging: action.data }
+    case getType(setPaging): {
+      let oldPaging: IPaging = { start: 0, end: SIZE }
+      if (state.paging) {
+        oldPaging = { ...state.paging }
+      }
+      const paging = {
+        start: +oldPaging.start + SIZE,
+        end: +oldPaging.end + SIZE,
+      }
+      return { ...state, paging }
+    }
     default:
       return state
   }

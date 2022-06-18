@@ -1,0 +1,14 @@
+
+.photo-skeleton{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 150px;
+    .content{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}

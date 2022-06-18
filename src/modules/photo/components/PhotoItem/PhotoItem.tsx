@@ -1,12 +1,11 @@
 import React from 'react'
 import './PhotoItem.scss'
-import { IPhoto } from '../../../models/photo'
+import { IPhoto } from '../../../../models/photo'
 import { useDispatch, useSelector } from 'react-redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { AppState } from './../../../redux/reducer'
+import { AppState } from '../../../../redux/reducer'
 import { Action } from 'redux'
-import { setPhotosChange, removePhotoChange, resetPhotos } from '../redux/photoReducer'
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import { setPhotosChange, removePhotoChange, resetPhotos } from '../../redux/photoReducer'
 
 interface Props {
   photoItem: IPhoto
@@ -44,11 +43,14 @@ const PhotoItem = (props: Props) => {
   return (
     <>
       <div className="photo">
-        <h2>{photoItem.id || <Skeleton count={3} />}</h2>
+        <h2>{photoItem.id}</h2>
         <img className="thumbnail" src={photoItem.thumbnailUrl} />
         <div className="content">
           <input className="input" value={title} onChange={(e) => handleChangeTitle(e)} />
-          <div className="date">{photoItem.updatedAt || <Skeleton width={100} height={500} />}</div>
+          <div className="date">
+            Updated At: 
+            {photoItem.updatedAt}
+          </div>
         </div>
       </div>
     </>

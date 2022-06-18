@@ -1,11 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import PhotoItem from './PhotoItem'
+import PhotoItem from '../PhotoItem/PhotoItem'
 import './PhotoList.scss'
-import { AppState } from './../../../redux/reducer'
+import { AppState } from '../../../../redux/reducer'
 import { Action } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
-import { updatePhotos, resetPhotos } from '../redux/photoReducer'
+import { updatePhotos, resetPhotos } from '../../redux/photoReducer'
 
 interface Props {}
 
