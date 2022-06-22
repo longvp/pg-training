@@ -43,11 +43,11 @@ function Navbar() {
                   <NavLink activeClassName="active" className="link" to={ROUTES.home}>
                     Home
                   </NavLink>
-                  <NavLink activeClassName="active" className="link" to={ROUTES.contact}>
-                    Contact
-                  </NavLink>
                   <NavLink activeClassName="active" className="link" to={ROUTES.photo}>
                     Photo
+                  </NavLink>
+                  <NavLink activeClassName="active" className="link" to={ROUTES.payroll}>
+                    Payroll
                   </NavLink>
                   <div className="btn-hide-menu" onClick={() => setShowMenu(false)}>
                     <FontAwesomeIcon icon={faXmark} />

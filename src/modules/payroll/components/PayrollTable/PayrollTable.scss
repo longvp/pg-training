@@ -1,0 +1,23 @@
+.payroll-table{
+    width: 100% !important;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+
+.payroll-thead, .payroll-tbody{
+    display: table-row-group;
+}
+
+.payroll-thead-tr{
+    display: table-row;
+    text-align: left;
+    letter-spacing: 1px;
+    th{
+        display: table-cell;
+        padding: 10px 20px;
+        cursor: pointer;
+        .icon{
+            margin-left: 6px;
+        }
+    }
+}

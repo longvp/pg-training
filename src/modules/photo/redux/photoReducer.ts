@@ -31,23 +31,22 @@ export const resetPhotos = createCustomAction('photo/resetPhotos', (data: boolea
 
 export const setPaging = createCustomAction('photo/setPaging')
 
+const initialState = {
+  listPhoto: [],
+  listPhotoChange: [],
+  isReset: false,
+  paging: {
+    start: 0,
+    end: SIZE,
+  },
+  isTheEnd: false,
+}
+
 const actions = { setPhotos, setPhotosChange, removePhotoChange, updatePhotos, resetPhotos, setPaging }
 
 type Action = ActionType<typeof actions>
 
-export default function reducer(
-  state: PhotoState = {
-    listPhoto: [],
-    listPhotoChange: [],
-    isReset: false,
-    paging: {
-      start: 0,
-      end: SIZE,
-    },
-    isTheEnd: false,
-  },
-  action: Action,
-) {
+export default function reducer(state: PhotoState = initialState, action: Action) {
   switch (action.type) {
     case getType(setPhotos): {
       let listPhoto: IPhoto[] = []

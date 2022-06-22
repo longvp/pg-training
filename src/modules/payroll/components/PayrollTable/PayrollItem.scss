@@ -1,0 +1,81 @@
+.payroll-tr{
+    display: table-row;
+    background-color: white;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    &:hover{
+        td{
+            border-color: #06283D;
+            &:first-child, &:last-child{
+                border-color: #06283D;
+            }
+        }
+    }
+    td{
+        display: table-cell;
+        padding: 15px 20px;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+        &:first-child{
+            border-left: 1px solid transparent;
+            border-top-left-radius: 15px ;
+            border-bottom-left-radius: 15px;
+        }
+        &:last-child{
+            border-right: 1px solid transparent;
+            border-top-right-radius: 15px ;
+            border-bottom-right-radius: 15px;
+        }
+    }
+    .status{
+        text-transform: capitalize;
+        min-width: 100px;
+        &.received{
+            color: #3B44F6;
+        }
+        &.processing{
+            color: #FF5B00;
+        }
+        &.fulfilled{
+            color: #3EC70B;
+        }
+        &.pending{
+            color: #354259;
+        }
+        &.cancelled{
+            color: #FF1818;
+        }
+    }
+    .date{
+        min-width: 100px;
+    }
+    .currency{
+        min-width: 100px;
+    }
+    .total{
+        font-weight: 700;
+        min-width: 150px;
+    }
+    .button-detail{
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid #06283D;
+        font-weight: 700;
+        border-radius: 100rem;
+        background-color: white;
+        padding: 6px 20px;
+        &:hover{
+            background-color: #06283D;
+            color: white;
+        }
+    }
+    .button-delete{
+        cursor: pointer;
+        color: #F94C66;
+        font-size: 23px;
+    }
+}
