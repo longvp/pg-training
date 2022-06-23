@@ -44,8 +44,12 @@ const PayrollField = (props: Props) => {
     if (filter.status === STATUS_NAME.CANCELLED && allPayrolls) {
       allPayrollsByFilter = allPayrolls.filter((payroll) => payroll.canceled)
     }
-    // if (filter.status === STATUS_NAME.PENDING && allPayrolls) {
-    // }
+    if (filter.status === STATUS_NAME.PENDING && allPayrolls) {
+      allPayrollsByFilter = allPayrolls.filter(
+        (payroll) =>
+          !payroll.received && !payroll.matched && !payroll.approved && !payroll.fulfilled && !payroll.canceled,
+      )
+    }
     if (filter.dateFrom && allPayrollsByFilter) {
       const dateFrom = new Date(filter.dateFrom).getTime()
       allPayrollsByFilter = allPayrollsByFilter.filter((payroll) => {
