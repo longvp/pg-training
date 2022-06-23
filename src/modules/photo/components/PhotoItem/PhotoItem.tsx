@@ -6,6 +6,7 @@ import { ThunkDispatch } from 'redux-thunk'
 import { AppState } from '../../../../redux/reducer'
 import { Action } from 'redux'
 import { setPhotosChange, removePhotoChange, resetPhotos } from '../../redux/photoReducer'
+import { Link } from 'react-router-dom'
 
 interface Props {
   photoItem: IPhoto
@@ -44,11 +45,13 @@ const PhotoItem = (props: Props) => {
     <>
       <div className="photo">
         <h2>{photoItem.id}</h2>
-        <img className="thumbnail" src={photoItem.thumbnailUrl} />
+        <Link to={`/photo-detail/${photoItem.id}`}>
+          <img className="thumbnail" src={photoItem.thumbnailUrl} />
+        </Link>
         <div className="content">
           <input className="input" value={title} onChange={(e) => handleChangeTitle(e)} />
           <div className="date">
-            Updated At: 
+            Updated At:
             {photoItem.updatedAt}
           </div>
         </div>

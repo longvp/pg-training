@@ -4,5 +4,7 @@ export const ROUTES = {
   register: '/register',
   home: '/home',
   photo: '/photo',
+  photoDetail: '/photo-detail/:photoId',
   payroll: '/payroll',
+  profile: '/profile',
 }

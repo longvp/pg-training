@@ -1,7 +1,7 @@
 import { faArrowRightFromBracket, faBars, faEye, faUser, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { ROUTES } from '../../../../configs/routes'
 import './Navbar.scss'
 import Cookies from 'js-cookie'
@@ -18,7 +18,7 @@ import { FormattedMessage } from 'react-intl'
 
 function Navbar() {
   const dispatch = useDispatch<ThunkDispatch<AppState, null, Action<string>>>()
-
+  const history = useHistory()
   const [showMenu, setShowMenu] = React.useState<boolean>(false)
 
   const { user } = useSelector((state: AppState) => ({
@@ -29,6 +29,10 @@ function Navbar() {
     dispatch(removeUserInfo())
     Cookies.remove(ACCESS_TOKEN_KEY)
     dispatch(replace(ROUTES.login_2))
+  }
+
+  const redirectToProfilePage = () => {
+    history.push('/profile')
   }
 
   return (
@@ -65,7 +69,7 @@ function Navbar() {
                             <FormattedMessage id="logout" />
                           </span>
                         </li>
-                        <li className="action" title="See detail">
+                        <li className="action" title="See detail" onClick={() => redirectToProfilePage()}>
                           <FontAwesomeIcon className="action-icon" icon={faEye} />
                           <span className="action-name">
                             <FormattedMessage id="seeDetail" />

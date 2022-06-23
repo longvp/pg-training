@@ -10,8 +10,10 @@ import Cookies from 'js-cookie'
 const HomePage = lazy(() => import('./modules/home/pages/HomePage'))
 //const LoginPage = lazy(() => import('./modules/auth/pages/LoginPage'))
 const LoginPage2 = lazy(() => import('./modules/auth_2/pages/LoginPage2'))
-const PhotoPage = lazy(() => import('./modules/photo/pages/PhotoPage'))
+const PhotoPage = lazy(() => import('./modules/photo/pages/PhotoPage/PhotoPage'))
 const PayrollPage = lazy(() => import('./modules/payroll/pages/PayrollPage'))
+const PhotoDetail = lazy(() => import('./modules/photo/pages/PhotoDetail/PhotoDetail'))
+const ProfilePage = lazy(() => import('./modules/home/pages/ProfilePage/ProfilePage'))
 
 interface Props {}
 
@@ -31,6 +33,8 @@ export const Routes = (props: Props) => {
           <ProtectedRoute path={ROUTES.home} component={HomePage} />
           <ProtectedRoute path={ROUTES.photo} component={PhotoPage} />
           <ProtectedRoute path={ROUTES.payroll} component={PayrollPage} />
+          <ProtectedRoute path={ROUTES.photoDetail} component={PhotoDetail} />
+          <ProtectedRoute path={ROUTES.profile} component={ProfilePage} />
 
           <Route path="/" component={LoginPage2} />
         </Switch>
